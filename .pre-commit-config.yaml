@@ -1,0 +1,6 @@
+repos:
+  - repo: https://github.com/PyCQA/flake8
+    rev: ''  # pick a git hash / tag to point to
+    hooks:
+    -   id: flake8
+        additional_dependencies: [-r, /home/konstantin/education/ant_adventure/requirements.txt]
