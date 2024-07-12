@@ -11,7 +11,7 @@ def main():
     while all(map(lambda cord: 0 < cord < 1023, (x, y))):
         x, y = ant.x, ant.y
         if field.cells[x][y] == 0:
-            ant.turn(right=False)
+            ant.turn(right=False)d
         else:
             ant.turn()
         field.invertion(x, y)
