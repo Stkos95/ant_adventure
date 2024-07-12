@@ -1,32 +1,31 @@
 from PIL import Image
-from classes import Field, Ant
+
+from classes import Ant, Field
 
 
 def main():
     field = Field((1024, 1024))
-
     # координаты центра поля, для начального положения муравья
-    x, y = map(lambda coord: int(coord / 2 - 1), field.cells.shape)
-    ant = Ant(x, y)
-    while all(map(lambda cord: 0 < cord < 1023, (x, y))):
-        x, y = ant.x, ant.y
-        if field.cells[x][y] == 0:
-            ant.turn(right=False)d
+    coord_x, coord_y = (int(coord / 2 - 1) for coord in field.cells.shape)
+    ant = Ant(coord_x, coord_y)
+    while all(0 < cord < 1023 for cord in (coord_x, coord_y)):
+
+        # while all(map(lambda cord: 0 < cord < 1023, (coord_x, coord_y))):
+        coord_x, coord_y = ant.coord_x, ant.coord_y
+        if field.cells[coord_x][coord_y] == 0:
+            ant.turn(right=False)
         else:
             ant.turn()
-        field.invertion(x, y)
+        field.invertion(coord_x, coord_y)
 
         if ant.position in (0, 180):
-            y += ant.position // 90 - 1
+            coord_y += ant.position // 90 - 1
 
         elif ant.position in (90, 270):
-            x += 270 // ant.position - 2
-        ant.x = x
-        ant.y = y
-
-    black_cells_amount = 1024 * 1024 - sum(field.cells.ravel())
+            coord_x += 270 // ant.position - 2
+        ant.coord_x = coord_x
+        ant.coord_y = coord_y
     # black_cells_amount = len(list(filter(lambda x: x == 0, field.cells.ravel())))
-
     i = Image.fromarray(field.cells)
     i.save('ant_track.bmp')
 
