@@ -12,7 +12,6 @@ def main():
         x, y = ant.x, ant.y
         if field.cells[x][y] == 0:
             ant.turn(right=False)
-            return
         else:
             ant.turn()
         field.invertion(x, y)
